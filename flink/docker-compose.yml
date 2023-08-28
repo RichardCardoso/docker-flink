@@ -13,6 +13,8 @@ services:
       - "8081:8081"
     deploy:
       replicas: 1
+    volumes:
+      - checkpoints-vol:/var/flink/checkpoints
 
   taskmanager:
     image: flink:latest
@@ -24,7 +26,12 @@ services:
       - kafka_broker-kafka
     deploy:
       replicas: 1
+    volumes:
+      - checkpoints-vol:/var/flink/checkpoints
 
 networks:
   kafka_broker-kafka:
     external: true
+
+volumes:
+  checkpoints-vol:
