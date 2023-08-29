@@ -1,0 +1,4 @@
+FROM flink:latest
+
+# Create the checkpoints directory and set its permissions
+RUN mkdir -p /var/flink/checkpoints && chmod -R 777 /var/flink/checkpoints

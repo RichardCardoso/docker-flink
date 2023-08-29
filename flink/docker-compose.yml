@@ -2,7 +2,9 @@ version: '3'
 
 services:
   jobmanager:
-    image: flink:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.jobmanager
     container_name: jobmanager
     command: jobmanager
     environment:
@@ -28,6 +30,8 @@ services:
       replicas: 1
     volumes:
       - checkpoints-vol:/var/flink/checkpoints
+    depends_on:
+      - jobmanager
 
 networks:
   kafka_broker-kafka:
