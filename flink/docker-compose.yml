@@ -9,10 +9,7 @@ services:
     command: jobmanager
     environment:
       FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
-    networks:
-      - kafka_broker-kafka
-    ports:
-      - "8081:8081"
+    network_mode: host
     deploy:
       replicas: 1
     volumes:
@@ -24,18 +21,13 @@ services:
     command: taskmanager
     environment:
       FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
-    networks:
-      - kafka_broker-kafka
+    network_mode: host
     deploy:
       replicas: 1
     volumes:
       - checkpoints-vol:/var/flink/checkpoints
     depends_on:
       - jobmanager
-
-networks:
-  kafka_broker-kafka:
-    external: true
 
 volumes:
   checkpoints-vol:
